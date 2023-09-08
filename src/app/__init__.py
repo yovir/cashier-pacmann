@@ -334,3 +334,28 @@ class Cart:
             # Display a message if the cart is empty.
             print("\n")
             print(f"{Back.YELLOW}{Fore.BLACK}{self.EMPTY_CART_MESSAGE}{Style.RESET_ALL}")
+
+
+    def reset_item(self):
+        """A function for emptying the cart.
+
+        Process:
+        It checks if the cart is empty or not.
+        If it's empty, all user-entered values will be removed.
+
+        Otherwise, it will display an error message.
+        """
+        # Check if the cart is not empty.
+        if self.is_true():
+            # Remove all items from the cart's dataframe.
+            self.df.drop(self.df.index, inplace=True)
+            print("\n")
+
+            # Display a success message.
+            print(f"{Back.GREEN}{Fore.BLACK}{self.SUCCESS_MESSAGE}{Style.RESET_ALL}")
+            print("All items have been successfully removed from the cart.")
+
+        # Display an error message if the cart is empty
+        else:
+            print("\n")
+            print(f"{Back.YELLOW}{Fore.BLACK}{self.EMPTY_CART_MESSAGE}{Style.RESET_ALL}")
