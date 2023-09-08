@@ -273,6 +273,49 @@ def remove_item_menu():
             continue
 
 
+def reset_item_menu():
+    """A function responsible for resetting the cart.
+
+    Parameters:
+    The current cart is displayed for reference.
+    A condition checks if the cart is empty.
+
+    Input:
+    A user prompt asking if they genuinely wish to reset the cart.
+
+    Process:
+    If the cart is not empty:
+        If the user responds with "no," the main menu will be displayed.
+        Otherwise, the reset_item method is invoked, clearing the cart.
+    If the cart is empty:
+        The main menu is displayed.
+
+    Output:
+    An updated cart.
+
+    """
+    welcome_message.show()
+    order.display_cart()
+    print("\n")
+
+    # Ask the user whether the user want to remove item again.
+    if not cutie.prompt_yes_or_no("Do you want to reset the cart?", enter_empty_confirms=False):
+        # Show welcome message and current cart.
+        welcome_message.show()
+        order.display_cart()
+
+        # Clear the screen then go back to main menu.
+        clear_screen.clear()
+        main()
+    
+    else:
+        order.reset_item()
+        print("\n")
+        input(ENTER_TO_CONTINUE ).lower().startswith(" ")
+        clear_screen.clear()
+        main()
+
+
 def main():
     """A main menu function.
 
