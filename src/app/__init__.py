@@ -176,3 +176,118 @@ class Cart:
 
         else:
             clear_screen.clear()
+
+
+    def update_item_name(self, item_name, new_item):
+        """A function for managing the modification of the item_name entered by the user in the cart.
+
+        Input:
+        item_name [String] - The original name of the item entered into the cart by the user.
+        new_item [String] - The new name for the item.
+
+        Process:
+        If the item_name is found in the cart, it will be replaced with the new_item.
+        Subsequently, the cart will be updated.
+        In case the item_name is not present in the cart, an error message will be displayed.
+
+        """
+
+        if self.is_true():
+            if item_name in self.df["Item"].values:
+                clear_screen.clear()
+                welcome_message.show()
+
+                self.df["Item"] = self.df["Item"].replace(to_replace=item_name, value=new_item)
+                self.display_cart()
+                
+                print(f"{Back.GREEN}{Fore.BLACK}{self.SUCCESS_MESSAGE}{Style.RESET_ALL}")
+                print(f"{item_name} has been renamed to {new_item}.")
+                print("\n")
+            else:
+                print("\n")
+                print(f"{Back.YELLOW}{Fore.BLACK}We didn't find {item_name} in the cart. Aborted.{Style.RESET_ALL}")
+        else:
+            print("\n")
+            print(f"{Back.YELLOW}{Fore.BLACK}{self.EMPTY_CART_MESSAGE}{Style.RESET_ALL}")
+
+
+    def update_item_quantity(self, item_name, new_quantity):
+        """A function for managing the update of the item_quantity entered by the user in the cart.
+
+        Input:
+        item_name [String] - The name of the item entered into the cart by the user.
+        new_quantity [Integer] - The new quantity for the item.
+
+        Process:
+        If the item_name is found in the cart, the item's quantity will be changed to the new_quantity.
+        Subsequently, the cart will be updated.
+        If the item_name is not present in the cart, an error message will be displayed.
+        """
+
+        # Verify whether the cart's empty by invoking the is_true function.
+        if self.is_true():
+            # Verify if the item_name exists in the cart and if the new_quantity is a positive integer.
+            if (item_name in self.df["Item"].values) and (isinstance(new_quantity, int) and new_quantity > 0):
+                clear_screen.clear()
+                welcome_message.show()
+
+                print(f"{Back.GREEN}{Fore.BLACK}{self.SUCCESS_MESSAGE}{Style.RESET_ALL}")
+                
+                # Populate the new item quantity and the total price.
+                self.df.loc[self.df["Item"] == item_name, "Quantity"] = new_quantity
+                self.df.loc[self.df["Item"] == item_name, "Total"] = new_quantity * self.df["Price per Item"]
+                
+                # Display updated cart.
+                self.display_cart()
+                print(f"{item_name}'s quantity has been updated to {new_quantity}.")
+
+            # If not, an error message will be displayed.
+            else:
+                print("\n")
+                print(f"{Back.YELLOW}{Fore.BLACK}Invalid input. Aborted.{Style.RESET_ALL}")
+                print(f"Please try again.")
+
+        # If not, it will display a message which indicates the cart is empty.        
+        else:
+            print("\n")
+            print(f"{Back.YELLOW}{Fore.BLACK}{self.EMPTY_CART_MESSAGE}{Style.RESET_ALL}")
+
+    
+    def update_item_price(self, item_name, new_price):
+        """A function for managing the update of the item_price entered by the user in the cart.
+
+        Input:
+        item_name [String] - The name of the item entered into the cart by the user.
+        new_price [Integer] - The new price for the item.
+
+        Process:
+        If the item_name is found in the cart, the item's price will be changed to the new_price.
+        Subsequently, the cart will be updated.
+        In case the item_name is not present in the cart, an error message will be displayed.
+
+        """
+
+        # Verify whether the cart's empty by invoking the is_true function.
+        if self.is_true():
+            # Verify if the item_name exists in the cart and if the new_price is a positive integer.
+            if item_name in self.df["Item"].values and (isinstance(new_price, int) and new_price > 0):
+                clear_screen.clear()
+                welcome_message.show()
+                
+                print(f"{Back.GREEN}{Fore.BLACK}{self.SUCCESS_MESSAGE}{Style.RESET_ALL}")
+                self.df.loc[self.df["Item"] == item_name, "Price per Item"] = new_price
+                self.df.loc[self.df["Item"] == item_name, "Total"] = new_price * self.df["Quantity"]
+
+                self.display_cart()
+                new_price = locale.currency(new_price, grouping=True)
+                print(f"{item_name}'s price has been updated to {new_price} per item.")
+
+            # If not, an error message will be displayed.
+            else:  
+                print("\n")
+                print(f"{Back.YELLOW}{Fore.BLACK}Invalid input. Aborted.{Style.RESET_ALL}")
+                print(f"Please try again.")
+
+        else:
+            print("\n")
+            print(f"{Back.YELLOW}{Fore.BLACK}{self.EMPTY_CART_MESSAGE}{Style.RESET_ALL}")
