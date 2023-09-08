@@ -16,6 +16,23 @@ clear_screen = ClearScreen()
 welcome_message = WelcomeMessage()
 
 
+def is_filled():
+    """This boolean function returns True when the cart is not empty, 
+    and False otherwise. 
+    
+    It is used by all functions, with the exception of add_items_menu. 
+    
+    Its intention is to remind users to add items first
+    before they will be able to use other functions.
+    """
+    if (order.is_true()):
+        pass
+    else:
+        clear_screen.clear()
+        print(f"{Back.YELLOW}{Fore.BLACK}{EMPTY_CART_MESSAGE}{Style.RESET_ALL}")
+        main()
+        
+
 def main():
     """A main menu function.
 
