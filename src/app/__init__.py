@@ -33,27 +33,46 @@ colorama_init()
 locale.setlocale(locale.LC_ALL, "id_ID")
 
 
-class clearScreen:
-# define our clear function
+class ClearScreen:
+    """A class to clear the terminal screen."""
+
     def clear(self):
-        # for windows
-        if name == 'nt':
-            _ = system('cls')
+        """Clears the terminal screen.
 
-        # for mac and linux(here, os.name is 'posix')
+        This method uses the appropriate clear command 
+        for the current operating system.
+        """
+
+        # Determine the operating system:
+        # for Windows
+        if name == "nt":
+            _ = system("cls")
+
+        # for Mac and Linux(here, os.name is "posix")
         else:
-            _ = system('clear')
+            _ = system("clear")
 
-class welcomeMsg:
-# define our message function to print message at startup
+
+# Define global variable for clear screen.
+clear_screen = ClearScreen()
+
+
+class WelcomeMessage:
+    """A class to show welcome message."""
+
     def show(self):
-        # always clear screen first
-        clr = clearScreen()
+        """Shows the welcome message.
 
-        # using pyfiglet to create ascii art
-        message = pyfiglet.figlet_format("Pacmann Cashier")
-        clr.clear()
-        print(message)
+        After showing it, then it clears the screen.
+        """
 
-        # break the line at the end message
-        print("\n")
+        # Set app name for banner.
+        APP_NAME = "Omega Cashier"
+
+        # Use pyfiglet to create ASCII art for app banner.
+        message = pyfiglet.figlet_format(APP_NAME, font="ogre")
+        print(f"{Fore.CYAN}{message}{Style.RESET_ALL}")
+
+
+# Define global variable for printing welcome message.
+welcome_message = WelcomeMessage()
