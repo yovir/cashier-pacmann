@@ -331,6 +331,21 @@ def check_order_menu():
     main()
 
 
+def checkout_menu():
+    """A function that invokes the checkout method within the Cart class.
+
+    Parameters:
+    Invoking the checkout method then followed by returning to the main menu.
+
+    """
+    welcome_message.show()
+    order.checkout()
+    print("\n")
+    input(ENTER_TO_CONTINUE ).lower().startswith(" ")
+    clear_screen.clear()
+    main()
+
+
 def main():
     """A main menu function.
 
