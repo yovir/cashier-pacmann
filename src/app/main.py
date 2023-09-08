@@ -31,7 +31,7 @@ def is_filled():
         clear_screen.clear()
         print(f"{Back.YELLOW}{Fore.BLACK}{EMPTY_CART_MESSAGE}{Style.RESET_ALL}")
         main()
-        
+
         
 def add_items_menu():
     """A function for adding a new item to the shopping cart.
@@ -103,6 +103,125 @@ def add_items_menu():
         else:
             clear_screen.clear()
             continue
+
+
+def update_items_menu(): 
+    """A function for modifying the user's shopping cart.
+
+    Parameters:
+    The function displays the current cart as a reference and 
+    provides choices to the user for updating the item name, item quantity, 
+    or item price they previously entered using the add_item function.
+
+    
+    Input:
+    old_item [String] - The item name in the cart that the user wants to update.
+    new_item [String] - The new item name to replace the old one.
+    new_quantity [String] - The new quantity for the item to replace the existing quantity.
+    new_price [String] - The new price for the item to replace the existing price.
+
+    
+    Process:
+    - To update the item name, the user should enter the old_item 
+    exactly as it appears in the cart and provide the new item name as new_item. 
+    Both names will be passed to the update_item_name function in the Cart class.
+    
+    - To update the item quantity, the user should enter the exact item name 
+    and provide the new_quantity. Both values will be passed to the update_item_quantity function in the Cart class.
+    
+    - To update the item price, the user should enter the exact item name 
+    and provide the new_price. Both values will be passed to the update_item_price function in the Cart class.
+
+    
+    Output:
+    The function will result in an updated shopping cart.
+    """
+    # Show welcome message and current cart
+    welcome_message.show()
+    order.display_cart()
+    
+    # Set the default flag to True
+    flag = True
+
+    # While the flag is True, the code below will be executed continuously.
+    while flag:
+        # Show update items menu.
+        print("\n")
+        print("Please choose what you wish to modify.")
+        menu = ["Item name", "Item quantity",
+            "Item price", "View current cart",
+            "Back to main menu"]
+
+        try:
+            choices = menu[cutie.select(menu)]
+            if choices == "Item name":
+                clear_screen.clear()
+                welcome_message.show()
+
+                order.display_cart()
+                print("\n")
+                
+                # User input.
+                print("Kindly provide the details of your items to be updated.")
+                old_item  = input("Item name: ")
+                new_item = input("New item name: ")
+                order.update_item_name(old_item, new_item)
+                
+                continue
+
+            elif choices == "Item quantity":
+                clear_screen.clear()
+                welcome_message.show()
+
+                order.display_cart()
+                print("\n")
+
+                # User input.
+                print("Kindly provide the details of your items to be updated.")
+                old_item  = input("Item name: ")
+                new_quantity = input("New quantity: ")
+                order.update_item_quantity(old_item, int(new_quantity))
+                
+                continue
+
+            elif choices == "Item price":
+                clear_screen.clear()
+                welcome_message.show()
+
+                order.display_cart()
+                print("\n")
+                
+                # User input.
+                print("Kindly provide the details of your items to be updated.")
+                old_item  = input("Item name: ")
+                new_price = input("New price: ")
+                order.update_item_price(old_item, int(new_price))
+                
+                continue
+
+            elif choices == "View current cart":
+                clear_screen.clear()
+                welcome_message.show()
+                
+                # User input.
+                order.display_cart()
+                print("\n")
+                
+                continue
+            
+            elif choices == "Back to main menu":
+                # Break the loop.
+                flag = False
+
+                # Clear the screen then go back to main menu.
+                clear_screen.clear()
+                main()
+
+            else:
+                continue
+
+        except ValueError:
+            print(INVALID_INPUT_MESSAGE)
 
 
 def main():
