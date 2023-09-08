@@ -291,3 +291,46 @@ class Cart:
         else:
             print("\n")
             print(f"{Back.YELLOW}{Fore.BLACK}{self.EMPTY_CART_MESSAGE}{Style.RESET_ALL}")
+
+
+    def remove_item(self, item_name):
+        """A function for removing an item from the cart.
+
+        Input:
+        item_name [String] - The name of the item to be removed.
+
+        Process:
+        If the item_name exists in the cart, it will be promptly removed.
+        In the event that the item_name is not found in the cart, an error message will be printed.
+
+        """
+    
+        # Check if the cart is not empty.
+        if self.is_true():
+            # Check if the item_name exists in the cart.
+            if item_name in self.df["Item"].values:
+                # Clear the screen and display welcome message.
+                clear_screen.clear()
+                welcome_message.show()
+                
+                # Remove the item from the cart's dataframe.
+                self.df = self.df[self.df["Item"] != item_name]
+                
+                # Display success message and current cart contents.
+                print(f"{Back.GREEN}{Fore.BLACK}{self.SUCCESS_MESSAGE}{Style.RESET_ALL}")
+                print(self.CURRENT_CART_MESSAGE)
+                self.display_cart()
+                
+                # Confirm that the item was successfully deleted.
+                print(f"{item_name} was successfully deleted.")
+                print("\n")
+                
+            else:
+                # Display an error message if item_name is not found in the cart.
+                print("\n")
+                print(f"{Back.YELLOW}{Fore.BLACK}We didn't find {item_name} in the cart. Please try again.{Style.RESET_ALL}")
+
+        else:
+            # Display a message if the cart is empty.
+            print("\n")
+            print(f"{Back.YELLOW}{Fore.BLACK}{self.EMPTY_CART_MESSAGE}{Style.RESET_ALL}")
