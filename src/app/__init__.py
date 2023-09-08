@@ -176,3 +176,36 @@ class Cart:
 
         else:
             clear_screen.clear()
+            
+
+    def update_item_name(self, item_name, new_item):
+        """A function for managing the modification of the item_name entered by the user in the cart.
+
+        Input:
+        item_name [String] - The original name of the item entered into the cart by the user.
+        new_item [String] - The new name for the item.
+
+        Process:
+        If the item_name is found in the cart, it will be replaced with the new_item.
+        Subsequently, the cart will be updated.
+        In case the item_name is not present in the cart, an error message will be displayed.
+
+        """
+
+        if self.is_true():
+            if item_name in self.df["Item"].values:
+                clear_screen.clear()
+                welcome_message.show()
+
+                self.df["Item"] = self.df["Item"].replace(to_replace=item_name, value=new_item)
+                self.display_cart()
+                
+                print(f"{Back.GREEN}{Fore.BLACK}{self.SUCCESS_MESSAGE}{Style.RESET_ALL}")
+                print(f"{item_name} has been renamed to {new_item}.")
+                print("\n")
+            else:
+                print("\n")
+                print(f"{Back.YELLOW}{Fore.BLACK}We didn't find {item_name} in the cart. Aborted.{Style.RESET_ALL}")
+        else:
+            print("\n")
+            print(f"{Back.YELLOW}{Fore.BLACK}{self.EMPTY_CART_MESSAGE}{Style.RESET_ALL}")
