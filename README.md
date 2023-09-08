@@ -7,6 +7,8 @@ Sistem kasir mandiri ini dibangun untuk memenuhi *final project* yang diberikan 
 ## Objective
 
 Membuat sistem kasir mandiri dengan fitur:
+
+
 :white_check_mark: Membuat ID transaksi.
 
 
