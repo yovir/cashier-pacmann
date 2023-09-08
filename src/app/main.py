@@ -316,6 +316,21 @@ def reset_item_menu():
         main()
 
 
+def check_order_menu():
+    """A function to display the user's cart.
+
+    Parameters:
+    Invoking the check_order method and returning to the main menu.
+
+    """
+    welcome_message.show()
+    order.check_order()
+    print("\n")
+    input(ENTER_TO_CONTINUE ).lower().startswith(" ")
+    clear_screen.clear()
+    main()
+
+
 def main():
     """A main menu function.
 
