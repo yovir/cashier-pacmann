@@ -1,7 +1,9 @@
 [project]
 name = "pacmann_cashier"
 version = "0.1"
-dependencies = ["pandas", "pyfiglet", "tabulate"]
+dependencies = ["pandas", "pyfiglet", 
+                "tabulate", "cutie",
+                "colorama"]
 
 [build-system]
 requires = ["setuptools"]
