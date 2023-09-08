@@ -32,6 +32,78 @@ def is_filled():
         print(f"{Back.YELLOW}{Fore.BLACK}{EMPTY_CART_MESSAGE}{Style.RESET_ALL}")
         main()
         
+        
+def add_items_menu():
+    """A function for adding a new item to the shopping cart.
+    
+    Parameters:
+    User will be prompted to input the item's name, quantity, 
+    and price as long as they respond with "yes." 
+    If the user answers "no," they will be returned to the main screen.
+
+    Input:
+
+    item_name [string] - The name of the item.
+    item_quantity [string] - The quantity of the item.
+    item_price [string] - The price of the item.
+
+    Process:
+    The item_quantity and item_price will be converted into integers. 
+    Then, all these values will be passed as arguments to the add_item function within the Cart class.
+
+    Output:
+    The function will display a table containing the item_name, item_quantity, 
+    item_price, and the total cost of the item.
+
+    """
+    # Clear the main screen
+    clear_screen.clear()
+
+    # Set the default flag to True
+    flag = True
+
+    # While the flag is True, the code below will be executed continuously.
+    while flag:
+        try:
+            # Control user input so that the input should match the requirements.
+            welcome_message.show()
+
+            # Show add items menu.
+            print("Kindly provide the details of your items, including their names, quantities, and prices.")
+            item_name = input("Item name: ")
+            item_quantity = input("Quantity: ")
+            item_price = input("Price: ")
+            
+            order.add_item(item_name, int(item_quantity), int(item_price))
+
+        # If the user enters a wrong format, this exception will be printed.
+        except ValueError:
+            # Clear the main screen
+            clear_screen.clear()
+
+            # Show the error message
+            print("\n")
+            print(f"{Back.YELLOW}{Fore.BLACK}{INVALID_INPUT_MESSAGE}For item quantity and item price.{Style.RESET_ALL}")
+            print("\n")
+            continue
+
+        # Ask the user whether the user want to add another item.
+        if not cutie.prompt_yes_or_no("Do you want to add another item?", enter_empty_confirms=False):
+            # Show welcome message and current cart.
+            welcome_message.show()
+            order.display_cart()
+
+            # Break the loop.
+            flag = False
+
+            # Clear the screen then go back to main menu.
+            clear_screen.clear()
+            main()
+
+        else:
+            clear_screen.clear()
+            continue
+
 
 def main():
     """A main menu function.
