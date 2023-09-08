@@ -224,6 +224,55 @@ def update_items_menu():
             print(INVALID_INPUT_MESSAGE)
 
 
+def remove_item_menu():
+    """A function designed to remove an individual item from the cart.
+
+    Parameters:
+    The cart is displayed as a reference.
+    A condition checks whether the cart is empty.
+
+    Input:
+    remove_item_input [String] - The item name the user wishes to remove.
+
+    Process:
+    If the cart is not empty:
+        remove_item_input is forwarded to the remove_item method within the Cart class.
+        Subsequently, the main screen is presented.
+    If the cart is empty:
+        The main screen is displayed.
+
+    Output:
+    An updated cart.
+
+    """
+    welcome_message.show()
+    order.display_cart()
+    print("\n")
+    flag = True
+    while flag:
+        # User input.
+        print("Kindly provide the details of your items to be removed.")
+        remove_item_input = input("Item name: ")
+        order.remove_item(remove_item_input)
+        is_filled()
+
+        # Ask the user whether the user want to remove item again.
+        if not cutie.prompt_yes_or_no("Do you want to remove another item?", enter_empty_confirms=False):
+            # Show welcome message and current cart.
+            welcome_message.show()
+            order.display_cart()
+
+            # Break the loop.
+            flag = False
+
+            # Clear the screen then go back to main menu.
+            clear_screen.clear()
+            main()
+
+        else:
+            continue
+
+
 def main():
     """A main menu function.
 
