@@ -1,11 +1,37 @@
-# import only system from os
+"""This script is used to mark this directory
+as a Python package.
+
+Function definitions and variable assignments 
+will be executed first when the package is imported.
+"""
+
+# Import module to print colored text.
+from colorama import init as colorama_init
+from colorama import Fore
+from colorama import Back
+from colorama import Style
+
+# Import module to clear terminal text.
 from os import system, name
- 
-# import sleep to show output for some time period
 from time import sleep
 
-# import library for ascii art
+# Import module to produce ASCII art.
 import pyfiglet
+
+# Import module to print table.
+import tabulate
+import pandas as pd
+
+# Import module for currency formatting.
+import locale
+
+
+# Call colorama initialization function, so we can print colored text.
+colorama_init()
+
+# Set Indonesia locale as formatting.
+locale.setlocale(locale.LC_ALL, "id_ID")
+
 
 class clearScreen:
 # define our clear function
