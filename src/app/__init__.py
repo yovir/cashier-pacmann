@@ -359,3 +359,35 @@ class Cart:
         else:
             print("\n")
             print(f"{Back.YELLOW}{Fore.BLACK}{self.EMPTY_CART_MESSAGE}{Style.RESET_ALL}")
+
+    
+    def check_order(self):
+        """A function to check the user's current order.
+
+        Process:
+        - Checks if the cart is not empty.
+        - Displays the current cart contents.
+        - Calculates and displays the grand total of the order.
+        - Informs the user that their order is ready for checkout.
+
+        If the cart is empty, it displays an error message.
+        """
+        
+        # Check if the cart is not empty
+        if self.is_true():
+            # Display the current cart contents.
+            print(f"{self.CURRENT_CART_MESSAGE}")
+            print("\n")
+            self.display_cart()
+            print("\n")
+
+            # Calculate and display the grand total with currency formatting.
+            grand_total = self.df["Total"].sum()
+            pretty_grand_total = locale.currency(grand_total, grouping=True)
+            print(f"Grand total: {Back.GREEN}{Fore.BLACK}{pretty_grand_total}{Style.RESET_ALL}")
+            print("Your order is ready to checkout. Please go to the checkout page for discount eligibility.")
+
+        else:
+            # Display an error message if the cart is empty.
+            print("\n")
+            print(f"{Back.YELLOW}{Fore.BLACK}{self.EMPTY_CART_MESSAGE}{Style.RESET_ALL}")
