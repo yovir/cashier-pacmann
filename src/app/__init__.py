@@ -176,7 +176,7 @@ class Cart:
 
         else:
             clear_screen.clear()
-            
+
 
     def update_item_name(self, item_name, new_item):
         """A function for managing the modification of the item_name entered by the user in the cart.
@@ -206,6 +206,48 @@ class Cart:
             else:
                 print("\n")
                 print(f"{Back.YELLOW}{Fore.BLACK}We didn't find {item_name} in the cart. Aborted.{Style.RESET_ALL}")
+        else:
+            print("\n")
+            print(f"{Back.YELLOW}{Fore.BLACK}{self.EMPTY_CART_MESSAGE}{Style.RESET_ALL}")
+
+
+    def update_item_quantity(self, item_name, new_quantity):
+        """A function for managing the update of the item_quantity entered by the user in the cart.
+
+        Input:
+        item_name [String] - The name of the item entered into the cart by the user.
+        new_quantity [Integer] - The new quantity for the item.
+
+        Process:
+        If the item_name is found in the cart, the item's quantity will be changed to the new_quantity.
+        Subsequently, the cart will be updated.
+        If the item_name is not present in the cart, an error message will be displayed.
+        """
+
+        # Verify whether the cart's empty by invoking the is_true function.
+        if self.is_true():
+            # Verify if the item_name exists in the cart and if the new_quantity is a positive integer.
+            if (item_name in self.df["Item"].values) and (isinstance(new_quantity, int) and new_quantity > 0):
+                clear_screen.clear()
+                welcome_message.show()
+
+                print(f"{Back.GREEN}{Fore.BLACK}{self.SUCCESS_MESSAGE}{Style.RESET_ALL}")
+                
+                # Populate the new item quantity and the total price.
+                self.df.loc[self.df["Item"] == item_name, "Quantity"] = new_quantity
+                self.df.loc[self.df["Item"] == item_name, "Total"] = new_quantity * self.df["Price per Item"]
+                
+                # Display updated cart.
+                self.display_cart()
+                print(f"{item_name}'s quantity has been updated to {new_quantity}.")
+
+            # If not, an error message will be displayed.
+            else:
+                print("\n")
+                print(f"{Back.YELLOW}{Fore.BLACK}Invalid input. Aborted.{Style.RESET_ALL}")
+                print(f"Please try again.")
+
+        # If not, it will display a message which indicates the cart is empty.        
         else:
             print("\n")
             print(f"{Back.YELLOW}{Fore.BLACK}{self.EMPTY_CART_MESSAGE}{Style.RESET_ALL}")
