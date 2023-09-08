@@ -76,3 +76,103 @@ class WelcomeMessage:
 
 # Define global variable for printing welcome message.
 welcome_message = WelcomeMessage()
+
+
+class Cart:
+    """A class to handle all cashier operations.
+
+    Constant:
+    MIN_DISCOUNT_THRESHOLD: the minimum requirement of total order for 5% discount.
+    MID_DISCOUNT_THRESHOLD: the minimum requirement of total order for 8% discount.
+    MAX_DISCOUNT_THRESHOLD: the minimum requirement of total order for 10% discount.
+
+    MIN_DISCOUNT: 5% discount.
+    MID_DISCOUNT: 8% discount.
+    MAX_DISCOUNT: 10% discount.
+
+    """
+
+    MIN_DISCOUNT_THRESHOLD = 200000
+    MIN_DISCOUNT = 0.05
+
+    MID_DISCOUNT_THRESHOLD = 300000
+    MID_DISCOUNT = 0.08
+
+    MAX_DISCOUNT_THRESHOLD = 500000
+    MAX_DISCOUNT = 0.1
+
+    SUCCESS_MESSAGE = "Your cart has been successfully updated."
+
+    COLUMN_NAMES = ["Item", "Quantity", "Price per Item", "Total"]
+    EMPTY_CART_MESSAGE = "There are no items in your cart. Please add items to begin shopping."
+    CURRENT_CART_MESSAGE = "Here is what you have in your current cart."
+    
+
+    def __init__(self):
+        """An initial class function that includes an empty pandas dataframe, 
+        which will later be populated with items and their attributes.
+
+        """
+
+        # Set item name as index
+        self.df = pd.DataFrame(columns=self.COLUMN_NAMES)
+
+
+    def is_true(self):
+        """A boolean function is executed to determine whether the cart is empty or not, 
+        and it is utilized by other functions.
+
+        If the cart is not empty, indicating that the add_item function has been invoked, 
+        another function can be executed as intended.
+
+        Otherwise, an error message will be generated.
+
+        """
+
+        if len(self.df) != 0:
+            return True
+        else:
+            return False
+        
+
+    def display_cart(self):
+        """A function for storing and displaying the cart.
+
+        """
+
+        print_cart = self.df.to_markdown(tablefmt="fancy_grid", index=False)
+        return print(print_cart)
+    
+
+    def add_item(self, item_name, item_quantity, item_price):
+        """A function to manage the addition of items to the cart.
+
+        This function accepts item_name, item_quantity, 
+        and item_price, then adds them to the dataframe.
+        
+        The total_item is calculated by multiplying item_quantity and item_price.
+
+        """
+
+        self.item_name = item_name
+        self.item_quantity = item_quantity
+        self.item_price = item_price
+
+        # Verifying user input to determine whether it is a positive integer or not.
+        if (isinstance(item_quantity, int)
+            and item_quantity > 0) and (isinstance(item_price, int) and item_price > 0) and (isinstance(item_name, str)):
+            print("\n")
+            total_item = item_quantity * item_price
+            new_item = pd.DataFrame({
+                "Item": [item_name],
+                "Quantity": [item_quantity],
+                "Price per Item": [item_price],
+                "Total": [total_item]
+            })
+            self.df = pd.concat([self.df, new_item], ignore_index=True)
+
+            self.display_cart()
+            print("\n")
+
+        else:
+            clear_screen.clear()
