@@ -7,21 +7,43 @@ Sistem kasir mandiri ini dibangun untuk memenuhi *final project* yang diberikan 
 ## Objective
 
 Membuat sistem kasir mandiri dengan fitur:
-:white_check_mark:  Membuat ID transaksi.
+:white_check_mark: Membuat ID transaksi.
+
+
 :white_check_mark: Memasukkan nama item, jumlah item, dan harga item.
+
+
 :white_check_mark: Melakukan pembaruan item, jumlah item, dan harga item.
+
+
 :white_check_mark: Menghapus item.
+
+
 :white_check_mark: Menghapus semua transaksi.
+
+
 :white_check_mark: Menampilkan keranjang belanja.
+
+
 :white_check_mark: Memberikan diskon dengan ketentuan.
+
+
 :white_check_mark: Menerapkan konsep *Modular Code*.
+
+
 :white_check_mark: Menerapkan prinsip *Clean Code* (PEP8).
+
+
 :white_check_mark: Membuat dokumentasi *Docstring*.
+
+
 :white_check_mark: Menerapkan *defense programming* dengan membuat *try, error* di *branching*.
+
+
 :white_check_mark: Menerapkan fitur tambahan: *currency formatting*, *app banner*, *pretty table*, dan navigasi menu menggunakan *arrow keys* pada *keyboard*, *terminal invokeable Python module*.
 
 ## Flowchart
-![flowchart_diagram](https://raw.githubusercontent.com/yovir/omega_cashier/main/flowchart_diagram.png)
+![flowchart_diagram](https://github.com/yovir/omega_cashier/blob/main/img/flowchart_diagram.png?raw=true)
 
 
 ## Code Snippets Explanation
