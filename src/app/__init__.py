@@ -391,3 +391,73 @@ class Cart:
             # Display an error message if the cart is empty.
             print("\n")
             print(f"{Back.YELLOW}{Fore.BLACK}{self.EMPTY_CART_MESSAGE}{Style.RESET_ALL}")
+
+
+    def checkout(self):
+        """Handle cart checkout and calculate the total.
+
+        Process:
+        - If the cart is not empty:
+            - It prints the current cart and calculates the grand_total by summing the Total column.
+            - If grand_total is greater than MAX_DISCOUNT_THRESHOLD (500,000), the user receives a 10% discount.
+            - If grand_total is greater than MID_DISCOUNT_THRESHOLD (300,000), the user receives an 8% discount.
+            - If grand_total is greater than MIN_DISCOUNT_THRESHOLD (200,000), the user receives a 5% discount.
+            - If grand_total is lower or equal to MIN_DISCOUNT_THRESHOLD (200,000), no discount is applied.
+            - The grand_total is adjusted by its discount, and the value is displayed.
+        - Otherwise, an error message is displayed.
+        """
+        
+        # Check if the cart is not empty
+        if self.is_true():
+            # Calculate the grand total by summing the Total column
+            grand_total = self.df["Total"].sum()
+            pretty_grand_total = locale.currency(grand_total, grouping=True)
+            
+            # Display the current cart
+            self.display_cart()
+            print("\n")
+
+            # Check if grand_total is greater than MAX_DISCOUNT_THRESHOLD (500,000)
+            if grand_total > self.MAX_DISCOUNT_THRESHOLD:
+                # Apply a 10% discount
+                grand_total = grand_total - (grand_total * self.MAX_DISCOUNT)
+                pretty_grand_total = locale.currency(grand_total, grouping=True)
+                print(f"You receive a 10% discount! Total order: {Back.GREEN}{Fore.BLACK}{pretty_grand_total}{Style.RESET_ALL}")
+                print("Thank you for your order.")
+
+                # Reset the order by removing all items from the cart's dataframe
+                self.df.drop(self.df.index, inplace=True)
+
+            # Check if grand_total is greater than MID_DISCOUNT_THRESHOLD (300,000)
+            elif grand_total > self.MID_DISCOUNT_THRESHOLD:
+                # Apply an 8% discount
+                grand_total = grand_total - (grand_total * self.MID_DISCOUNT)
+                pretty_grand_total = locale.currency(grand_total, grouping=True)
+                print(f"You receive an 8% discount! Total order: {Back.GREEN}{Fore.BLACK}{pretty_grand_total}{Style.RESET_ALL}")
+                print("Thank you for your order.")
+
+                # Reset the order
+                self.df.drop(self.df.index, inplace=True)
+
+            # Check if grand_total is greater than MIN_DISCOUNT_THRESHOLD (200,000)
+            elif grand_total > self.MIN_DISCOUNT_THRESHOLD:
+                # Apply a 5% discount
+                grand_total = grand_total - (grand_total * self.MIN_DISCOUNT)
+                pretty_grand_total = locale.currency(grand_total, grouping=True)
+                print(f"You receive a 5% discount! Total order: {Back.GREEN}{Fore.BLACK}{pretty_grand_total}{Style.RESET_ALL}")
+                print("Thank you for your order.")
+
+                # Reset the order
+                self.df.drop(self.df.index, inplace=True)
+
+            else:
+                # No discount applied, display the total order
+                print(f"Total order: {Back.GREEN}{Fore.BLACK}{pretty_grand_total}{Style.RESET_ALL}")
+                print("Thank you for your order.")
+
+                # Reset the order
+                self.df.drop(self.df.index, inplace=True)
+        else:
+            # Display an error message if the cart is empty
+            print("\n")
+            print(f"{Back.YELLOW}{Fore.BLACK}{self.EMPTY_CART_MESSAGE}{Style.RESET_ALL}")
